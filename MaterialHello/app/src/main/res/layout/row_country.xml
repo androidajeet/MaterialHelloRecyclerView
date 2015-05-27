@@ -4,15 +4,21 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="2dp"
-    card_view:cardCornerRadius="4dp">
+    android:layout_margin="4dp"
+    android:clickable="true"
+
+    card_view:backgroundTint="@color/colorAccent"
+    card_view:cardCornerRadius="4dp"
+
+    card_view:cardElevation="3dp"
+
+
+    >
 
 
     <RelativeLayout
-
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="5dp"
+        android:layout_height="220dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -20,15 +26,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/letterImage"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/ic_image"
-                android:scaleType="centerCrop"
-                android:tint="@color/colorAccent">
+                android:background="@drawable/myicon"
+                android:elevation="8dp"
+                >
 
                 <TextView
                     android:id="@+id/letterName"
@@ -36,9 +43,10 @@
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:clickable="true"
+                    android:elevation="5dp"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text=""
+                    android:text="Ay"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -47,17 +55,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/userName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="left"
                     android:text="Ravi"
+
+
                     android:textSize="22sp" />
 
                 <LinearLayout
@@ -113,19 +124,28 @@
 
                 <TextView
                     android:id="@+id/like_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="left"
+                    android:background="@drawable/myicon"
+                    android:clickable="true"
+                    android:elevation="8dp"
+                    android:focusable="true"
+                    android:gravity="center"
+
                     android:text="+1"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/likeCountTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
                     android:text="1"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -134,16 +154,30 @@
                 android:id="@+id/item2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/msg_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:icon="@drawable/message_icon"
-                    android:src="@drawable/message_icon" />
+                <RelativeLayout
+
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/myicon"
+                    android:elevation="8dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/msg_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerInParent="true"
+
+                        android:background="@drawable/ic_insert_comment_white_18dp"
+
+
+                        />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/msgCountTxt"
@@ -151,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:gravity="center"
+                    android:gravity="top"
                     android:text="1"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -160,15 +194,30 @@
                 android:id="@+id/item3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="right"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/share_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/ic_menu_share_holo_light" />
+                <RelativeLayout
+
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/myicon"
+                    android:elevation="8dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/share_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+
+
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/ic_share_white_16dp"
+
+                        />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/shareCountTxt"

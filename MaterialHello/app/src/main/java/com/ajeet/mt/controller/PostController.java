@@ -90,4 +90,41 @@ public class PostController {
 		return post;
 	}
 
+	public boolean updateTask(int postId,int count) {
+
+
+		SQLiteDatabase sqldb = null;
+		boolean isUpdated=false;
+		try {
+			sqldb = new DatabaseHelper(context).getWritableDatabase();
+			ContentValues values = new ContentValues();
+			values.put("Likes",count);
+			long x = sqldb.update(DatabaseHelper.TABLE_POSTS, values, "Id=?",
+					new String[] {postId+"" });
+			if (x > 0){
+				isUpdated=true;
+			}
+			else{
+				isUpdated=false;
+			}
+
+		} catch (Exception exce) {
+			exce.printStackTrace();
+			isUpdated=false;
+		} finally {
+
+			if (sqldb.isOpen())
+				sqldb.close();
+		}
+		return isUpdated;
+
+	}
+
+
+
+
+
+
+
+
 }

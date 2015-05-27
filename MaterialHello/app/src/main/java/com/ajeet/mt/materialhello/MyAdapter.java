@@ -1,3 +1,4 @@
+/*
 package com.ajeet.mt.materialhello;
 
 import android.content.Context;
@@ -15,9 +16,11 @@ import com.ajeet.mt.util.Common;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * Created by kartik on 5/20/2015.
- */
+ *//*
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // private ArrayList<String> mDataset;
 
@@ -26,7 +29,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // private String[] mDataset;
     // private  TextView title;
 
-   /* @Override
+   */
+/* @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.nav_drawer_row, parent, false);
@@ -34,15 +38,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ViewHolder vh = new ViewHolder(title);
         return vh;
-    }*/
+    }*//*
 
-    /*@Override
+
+    */
+/*@Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
         holder.mTextView.setText(mDataset[position]);
-    }*/
+    }*//*
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -57,7 +64,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-       /* final String name = mDataset.get(position);
+       */
+/* final String name = mDataset.get(position);
         holder.txtHeader.setText(mDataset.get(position));
         holder.txtHeader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +74,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
         });
 
-        holder.txtFooter.setText("Footer: " + mDataset.get(position));*/
+        holder.txtFooter.setText("Footer: " + mDataset.get(position));*//*
+
         Post p = posts.get(position);
         holder.userName.setText(p.getPostedBy());
         holder.postString.setText(p.getPostText());
@@ -87,14 +96,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         //public TextView mTextView;
-       /* public TextView txtHeader;
+       */
+/* public TextView txtHeader;
         public TextView txtFooter;
 
         public ViewHolder(View v) {
             super(v);
             txtHeader = (TextView) v.findViewById(R.id.firstLine);
             txtFooter = (TextView) v.findViewById(R.id.secondLine);
-        }*/
+        }*//*
+
         public TextView userName, postString, createdDateString, noOfLikes, likebutton;
         public RelativeLayout countryImage;
 
@@ -132,11 +143,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-    /*public void remove(String item) {
+    */
+/*public void remove(String item) {
         int position = mDataset.indexOf(item);
         mDataset.remove(position);
         notifyItemRemoved(position);
-    }*/
+    }*//*
+
 
 
 }
+*/

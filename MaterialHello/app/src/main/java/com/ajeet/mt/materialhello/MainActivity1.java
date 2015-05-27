@@ -2,15 +2,29 @@ package com.ajeet.mt.materialhello;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Outline;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ajeet.mt.controller.PostController;
 import com.ajeet.mt.model.Post;
+import com.ajeet.mt.util.Common;
 
 import java.util.List;
 
@@ -21,11 +35,30 @@ public class MainActivity1 extends ActionBarActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static final String MY_DB = "my_db";
     private PostController pc;
+    private ActionBarDrawerToggle drawerToggle;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private Outline mOutlineCircle;
+    private ListView leftDrawerList;
+    private ArrayAdapter<String> navigationDrawerAdapter;
+    private String[] leftSliderData = {"Home", "Android", "Sitemap", "About", "Contact Me"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        nitView();
+        if (toolbar != null) {
+           // toolbar.setTitle("Navigation Drawer");
+            setSupportActionBar(toolbar);
+        }
+
+        
+
         SharedPreferences sp = getSharedPreferences(MY_DB, Context.MODE_PRIVATE);
         boolean hasVisited = sp.getBoolean("hasVisited", false);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -48,6 +81,8 @@ public class MainActivity1 extends ActionBarActivity {
             e.putBoolean("hasVisited", true);
             e.commit();
         }
+
+
         /*ArrayList<String> myDataset = new ArrayList<String>();
         myDataset.add("Item1");
         myDataset.add("Item2");
@@ -65,6 +100,44 @@ public class MainActivity1 extends ActionBarActivity {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
 
+        setAdapter();
+        initDrawer();
+
+    }
+
+    private void nitView() {
+        leftDrawerList = (ListView) findViewById(R.id.left_drawer);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        navigationDrawerAdapter=new ArrayAdapter<String>( MainActivity1.this, android.R.layout.simple_list_item_1, leftSliderData);
+        leftDrawerList.setAdapter(navigationDrawerAdapter);
+    }
+
+    private void initDrawer() {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+            }
+        };
+        drawerLayout.setDrawerListener(drawerToggle);
+        }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+
+    private void setAdapter() {
         pc = new PostController(MainActivity1.this);
         List<Post> listPost = pc.getAllPost();
         mRecyclerView.setHasFixedSize(true);
@@ -73,10 +146,149 @@ public class MainActivity1 extends ActionBarActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(listPost, MainActivity1.this);
+        mAdapter = new MyAdapter(listPost, R.layout.row_country, this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
+
+    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+        private List<Post> posts;
+        private int rowLayout;
+        private Context mContext;
+        private int counter = 0;
+        private int position = 0;
+        Post p;
+        private PostController postController;
+
+        public MyAdapter(List<Post> posts, int rowLayout, Context context) {
+            this.posts = posts;
+            this.rowLayout = rowLayout;
+            this.mContext = context;
+
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
+            return new ViewHolder(v);
+        }
+
+
+        @Override
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+
+            position = i;
+            final ViewHolder  vh = viewHolder;
+
+            p = posts.get(i);
+            vh.userName.setText(p.getPostedBy());
+            vh.postString.setText(p.getPostText());
+            vh.createdDateString.setText(Common.getDifferenceBetweenDate(p.getCreatedDate(), Common.getCurrentLocalDateTime()));
+           // vh.noOfLikes.setText(p.getLikes() + "");
+
+
+            viewHolder.likebutton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    /// button click event
+                    counter++;
+                    System.out.println("position::" + i);
+                    vh.noOfLikes.setText(counter+"");
+
+
+
+                   /* PostController postController = new PostController(MainActivity1.this);
+                    boolean isRightBuild = postController.updateTask(position, counter);
+                    if (isRightBuild) {
+                        p.setLikes(counter);
+                        v.setTag(p);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.invalidate();
+                    }
+*/
+                    //Toast.makeText(MainActivity1.this,"count"+counter, Toast.LENGTH_LONG).show();
+                }
+            });
+            //counter = p.getLikes();
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return posts == null ? 0 : posts.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView userName, postString, createdDateString, noOfLikes, likebutton;
+            // public Button likebutton;
+            public RelativeLayout countryImage;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                userName = (TextView) itemView.findViewById(R.id.userName);
+                postString = (TextView) itemView.findViewById(R.id.dataTxt);
+                noOfLikes = (TextView) itemView.findViewById(R.id.likeCountTxt);
+                countryImage = (RelativeLayout) itemView.findViewById(R.id.letterImage);
+                createdDateString = (TextView) itemView.findViewById(R.id.timeStamp);
+                likebutton = (TextView) itemView.findViewById(R.id.like_icon);
+
+               /* int size = getResources().getDimensionPixelSize(R.dimen.fab_size);
+                Outline outline = new Outline();
+                outline.setOval(0, 0, size, size);*/
+                //outline.setOval(0, 0, size, size);
+                noOfLikes.setTag(position);
+                /*likebutton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        // TODO Auto-generated method stub
+                        //int count = Integer.parseInt(noOfLikes.toString());
+                        counter++;
+
+                        Toast.makeText(MainActivity1.this,"count"+counter, Toast.LENGTH_LONG).show();
+
+                        *//*PostController postController = new PostController(MainActivity1.this);
+                        boolean isRightBuild = postController.updateTask(position, counter);
+                        if (isRightBuild) {
+                            p.setLikes(counter);
+                            v.setTag(p);
+                            mAdapter.notifyDataSetChanged();
+                            mRecyclerView.invalidate();
+                        }*//*
+
+
+                    }
+                });*/
+
+
+            }
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ///option menu code
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

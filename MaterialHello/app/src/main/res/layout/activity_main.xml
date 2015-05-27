@@ -1,26 +1,75 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity1">
 
-    tools:context=".MainActivity">
+    <include layout="@layout/toolbar" />
 
-   <!-- <TextView
-        android:id="@+id/tvtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="5dp"
-        android:text="@string/app_name" />-->
+    <!-- <TextView
+         android:id="@+id/tvtext"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:elevation="5dp"
+         android:text="@string/app_name" />-->
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        <!--main activity view-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff">
 
-        android:scrollbars="vertical" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_recycler_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
 
-</RelativeLayout>
-   <!--
+                android:scrollbars="vertical" />
+
+            <ImageButton
+            android:id="@+id/fab_image_button"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/fab"
+            android:src="@drawable/fab_ic_add"
+            android:tint="@android:color/white"/>
+
+
+
+
+
+        </RelativeLayout>
+        <!-- navigation drawer -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|start"
+            android:background="#fff">
+
+            <ListView
+                android:id="@+id/left_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:divider="#eee"
+                android:dividerHeight="1dp" />
+        </RelativeLayout>
+
+
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>
+
+    <!--
      android:layout_below="@+id/tvtext"
 
 
